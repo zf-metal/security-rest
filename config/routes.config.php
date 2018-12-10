@@ -1,20 +1,18 @@
 <?php
 
-use Zend\Router\Http\Literal;
-
 return [
     'router' => [
         'routes' => [
             'zf-metal-security-rest' => [
-                'type' => Literal::class,
+                'type' => \Zend\Router\Http\Literal::class,
                 'may_terminate' => false,
                 'options' => [
                     'route' => '/security/api',
                 ],
                 'child_routes' => [
-                    'user' => [
+                    'users' => [
                         'type' => \Zend\Router\Http\Segment::class,
-                        'may_terminate' => false,
+                        'may_terminate' => true,
                         'options' => [
                             'route' => '/users[/:id]',
                             'defaults' => [

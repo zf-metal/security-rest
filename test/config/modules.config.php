@@ -13,5 +13,7 @@
 return [
     'Zend\Router',
     'Zend\Validator',
+    'DoctrineModule',
+    'DoctrineORMModule',
     'ZfMetal\SecurityRest'
 ];

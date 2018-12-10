@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "1bc6e3e6b8c9e7f15a57c8a6b19511fe",
@@ -5419,16 +5419,16 @@
         },
         {
             "name": "zf-metal/restful",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zf-metal/restfull.git",
-                "reference": "1aea8c307e233e2b870694f462b2af90edf45e7d"
+                "url": "https://github.com/zf-metal/restful.git",
+                "reference": "724b9dfb8130f5241d84043460a9df69a4b4e7db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/restfull/zipball/1aea8c307e233e2b870694f462b2af90edf45e7d",
-                "reference": "1aea8c307e233e2b870694f462b2af90edf45e7d",
+                "url": "https://api.github.com/repos/zf-metal/restful/zipball/724b9dfb8130f5241d84043460a9df69a4b4e7db",
+                "reference": "724b9dfb8130f5241d84043460a9df69a4b4e7db",
                 "shasum": ""
             },
             "require": {
@@ -5479,7 +5479,7 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2018-09-11T14:55:48+00:00"
+            "time": "2018-12-10T14:13:40+00:00"
         },
         {
             "name": "zf-metal/security",

@@ -26,6 +26,15 @@ class UserController extends MainController
      */
     protected $em;
 
+    /**
+     * UserController constructor.
+     * @param \Doctrine\ORM\EntityManager $em
+     */
+    public function __construct(\Doctrine\ORM\EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     public function getUserRepository()
     {
         $this->getEm()->getRepository(User::class);

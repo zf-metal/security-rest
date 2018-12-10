@@ -99,22 +99,23 @@ class UserControllerTest extends AbstractHttpControllerTestCase
         return $this->mockedUser;
     }
 
+
     /**
      * Verico que con metodo GET obtengo 404 not found
      */
     public function testGet()
     {
-        $this->dispatch("/security/api/user/1", "GET");
+        $this->dispatch("/security/api/users/1", "GET");
 
-        $json = [
-            'id' => 1,
-            'username' => 'JhonDoe',
-            'active' => true
-        ];
 
+        $response = json_decode($this->getResponse()->getContent());
 
         $this->assertResponseStatusCode(200);
-        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($json));
+
+        $this->assertEquals($response->id, $this->getMockUser()->getId());
+        $this->assertEquals($response->username, $this->getMockUser()->getUsername());
+        $this->assertEquals($response->active, $this->getMockUser()->getActive());
+
     }
 
 
