@@ -1,0 +1,42 @@
+{
+  "name": "zf-metal/security-jwt",
+  "description": "Modulo de autenticación por jwt para Zend Framework 3",
+  "type": "library",
+  "license": "MIT",
+  "version": "1.0.0",
+  "homepage": "https://github.com/cincarnato",
+  "keywords": [
+    "zf3"
+  ],
+  "authors": [
+    {
+      "name": "Cristian Incarnato",
+      "email": "cincarnato@gmail.com",
+      "homepage": "http://cincarnato.com.ar/",
+      "role": "Desarrollador"
+    },
+    {
+      "name": "Alejandro Furgeri",
+      "email": "alecitoman@gmail.com",
+      "homepage": "http://afurgeri.com.ar/",
+      "role": "Desarrollador"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^5.6 || ^7.0",
+    "firebase/php-jwt": "^5.0",
+    "zf-metal/security": "^1.1.2",
+    "zf-metal/restful": "^1.0.7",
+    "zf-metal/log": "^1.0.0"
+  },
+  "require-dev": {
+    "zendframework/zend-test": "^3.1@dev",
+    "zendframework/zend-http": "^2.8@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "ZfMetal\\SecurityRest\\": "src/"
+    }
+  }
+}
