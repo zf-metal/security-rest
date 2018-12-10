@@ -3589,16 +3589,16 @@
         },
         {
             "name": "zendframework/zend-hydrator",
-            "version": "dev-master",
+            "version": "dev-release-2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-hydrator.git",
-                "reference": "15979c1cdfc3a3811c067ecb93a5782e8fc7ef53"
+                "reference": "9c48e077e1d0defc413b1c91724d7083c475e061"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-hydrator/zipball/15979c1cdfc3a3811c067ecb93a5782e8fc7ef53",
-                "reference": "15979c1cdfc3a3811c067ecb93a5782e8fc7ef53",
+                "url": "https://api.github.com/repos/zendframework/zend-hydrator/zipball/9c48e077e1d0defc413b1c91724d7083c475e061",
+                "reference": "9c48e077e1d0defc413b1c91724d7083c475e061",
                 "shasum": ""
             },
             "require": {
@@ -3623,10 +3623,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-release-1.0": "1.0.x-dev",
-                    "dev-release-1.1": "1.1.x-dev",
-                    "dev-master": "2.4.x-dev",
-                    "dev-develop": "3.0.x-dev"
+                    "dev-release-2.4": "2.4.x-dev"
                 },
                 "zf": {
                     "component": "Zend\\Hydrator",
@@ -3648,7 +3645,7 @@
                 "hydrator",
                 "zf"
             ],
-            "time": "2018-11-19T19:32:54+00:00"
+            "time": "2018-12-10T17:47:11+00:00"
         },
         {
             "name": "zendframework/zend-i18n",
@@ -4786,12 +4783,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-test.git",
-                "reference": "a48498c75ce4721b3f436a9a0d88ff720192c605"
+                "reference": "4e18df6baef3ffc9e8f69049d2a83d10397930f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-test/zipball/a48498c75ce4721b3f436a9a0d88ff720192c605",
-                "reference": "a48498c75ce4721b3f436a9a0d88ff720192c605",
+                "url": "https://api.github.com/repos/zendframework/zend-test/zipball/4e18df6baef3ffc9e8f69049d2a83d10397930f9",
+                "reference": "4e18df6baef3ffc9e8f69049d2a83d10397930f9",
                 "shasum": ""
             },
             "require": {
@@ -4849,7 +4846,7 @@
                 "test",
                 "zf"
             ],
-            "time": "2018-04-10T20:57:53+00:00"
+            "time": "2018-12-10T16:51:19+00:00"
         },
         {
             "name": "zendframework/zend-text",
@@ -5019,21 +5016,22 @@
         },
         {
             "name": "zendframework/zend-view",
-            "version": "2.10.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-view.git",
-                "reference": "4478cc5dd960e2339d88b363ef99fa278700e80e"
+                "reference": "9ce0ace47d5f3921bdcd3566ff83d65e8a865df1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-view/zipball/4478cc5dd960e2339d88b363ef99fa278700e80e",
-                "reference": "4478cc5dd960e2339d88b363ef99fa278700e80e",
+                "url": "https://api.github.com/repos/zendframework/zend-view/zipball/9ce0ace47d5f3921bdcd3566ff83d65e8a865df1",
+                "reference": "9ce0ace47d5f3921bdcd3566ff83d65e8a865df1",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0",
                 "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
+                "zendframework/zend-json": "^2.6.1 || ^3.0",
                 "zendframework/zend-loader": "^2.5",
                 "zendframework/zend-stdlib": "^2.7 || ^3.0"
             },
@@ -5049,10 +5047,9 @@
                 "zendframework/zend-filter": "^2.6.1",
                 "zendframework/zend-http": "^2.5.4",
                 "zendframework/zend-i18n": "^2.6",
-                "zendframework/zend-json": "^2.6.1",
                 "zendframework/zend-log": "^2.7",
                 "zendframework/zend-modulemanager": "^2.7.1",
-                "zendframework/zend-mvc": "^2.7 || ^3.0",
+                "zendframework/zend-mvc": "^2.7.14 || ^3.0",
                 "zendframework/zend-navigation": "^2.5",
                 "zendframework/zend-paginator": "^2.5",
                 "zendframework/zend-permissions-acl": "^2.6",
@@ -5069,8 +5066,8 @@
                 "zendframework/zend-filter": "Zend\\Filter component",
                 "zendframework/zend-http": "Zend\\Http component",
                 "zendframework/zend-i18n": "Zend\\I18n component",
-                "zendframework/zend-json": "Zend\\Json component",
                 "zendframework/zend-mvc": "Zend\\Mvc component",
+                "zendframework/zend-mvc-plugin-flashmessenger": "zend-mvc-plugin-flashmessenger component, if you want to use the FlashMessenger view helper with zend-mvc versions 3 and up",
                 "zendframework/zend-navigation": "Zend\\Navigation component",
                 "zendframework/zend-paginator": "Zend\\Paginator component",
                 "zendframework/zend-permissions-acl": "Zend\\Permissions\\Acl component",
@@ -5083,8 +5080,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.10.x-dev",
-                    "dev-develop": "2.11.x-dev"
+                    "dev-master": "2.11.x-dev",
+                    "dev-develop": "2.12.x-dev"
                 }
             },
             "autoload": {
@@ -5102,7 +5099,7 @@
                 "view",
                 "zf2"
             ],
-            "time": "2018-01-17T22:21:50+00:00"
+            "time": "2018-12-10T16:40:48+00:00"
         },
         {
             "name": "zf-commons/zfc-rbac",
@@ -5419,16 +5416,16 @@
         },
         {
             "name": "zf-metal/restful",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/restful.git",
-                "reference": "724b9dfb8130f5241d84043460a9df69a4b4e7db"
+                "reference": "841fee268bde89601ed61d58c37edb4eaa88df97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/restful/zipball/724b9dfb8130f5241d84043460a9df69a4b4e7db",
-                "reference": "724b9dfb8130f5241d84043460a9df69a4b4e7db",
+                "url": "https://api.github.com/repos/zf-metal/restful/zipball/841fee268bde89601ed61d58c37edb4eaa88df97",
+                "reference": "841fee268bde89601ed61d58c37edb4eaa88df97",
                 "shasum": ""
             },
             "require": {
@@ -5479,7 +5476,7 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2018-12-10T14:13:40+00:00"
+            "time": "2018-12-10T18:52:55+00:00"
         },
         {
             "name": "zf-metal/security",

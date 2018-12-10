@@ -2,6 +2,7 @@
 
 namespace Test\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 
 use PHPUnit\Framework\TestCase;
@@ -10,6 +11,7 @@ use Zend\Http\Headers;
 use Zend\Http\Request;
 use Zend\ServiceManager\ServiceManager;
 use ZendTest\Http\HeadersTest;
+use ZfMetal\Restful\Filter\FilterManager;
 use ZfMetal\Security\Repository\UserRepository;
 use ZfMetal\SecurityJwt\Controller\JwtController;
 use ZfMetal\SecurityJwt\Options\ModuleOptions;
@@ -24,11 +26,10 @@ use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 class UserControllerTest extends AbstractHttpControllerTestCase
 {
 
-
     protected $mockedEm;
     protected $mockedUserRepository;
     protected $mockedUser;
-
+    protected $mockedCollection;
 
     /**
      * Inicializo el MVC
@@ -40,6 +41,8 @@ class UserControllerTest extends AbstractHttpControllerTestCase
         );
         parent::setUp();
         $this->configureServiceManager($this->getApplicationServiceLocator());
+
+
     }
 
     /**
@@ -99,6 +102,37 @@ class UserControllerTest extends AbstractHttpControllerTestCase
         return $this->mockedUser;
     }
 
+    public function getMockUser2()
+    {
+        if (!$this->mockedUser2) {
+            $this->mockedUser2 = new \ZfMetal\Security\Entity\User();
+            $this->mockedUser2->setId(2);
+            $this->mockedUser2->setUsername("JaneDoe");
+            $this->mockedUser2->setActive(true);
+            $bcrypt = new Bcrypt(['cost' => 12]);
+            $password = $bcrypt->create("validPassword");
+            $this->mockedUser2->setPassword($password);
+        }
+        return $this->mockedUser2;
+    }
+
+    public function getMockedCollection()
+    {
+        if (!$this->mockedCollection) {
+            $this->mockedCollection = new ArrayCollection();
+            $this->mockedCollection->add($this->getMockUser());
+            $this->mockedCollection->add($this->getMockUser2());
+        }
+        return $this->mockedCollection;
+    }
+
+    protected function getMockedFilterManager(){
+
+        $filterManager = $this->createMock(FilterManager::class);
+        $filterManager->method('filterEntityByRequestQuery')
+            ->willReturn($this->getMockedCollection());
+    }
+
 
     /**
      * Verico que con metodo GET obtengo 404 not found
@@ -111,6 +145,23 @@ class UserControllerTest extends AbstractHttpControllerTestCase
         $response = json_decode($this->getResponse()->getContent());
 
         $this->assertResponseStatusCode(200);
+
+
+        $json = [
+            'id' => $this->getMockUser()->getId(),
+            'username' => $this->getMockUser()->getUsername(),
+            'active' => $this->getMockUser()->getActive(),
+            'name' => $this->getMockUser()->getName(),
+            'email' => $this->getMockUser()->getEmail(),
+            'phone' => $this->getMockUser()->getPhone(),
+            'img' => $this->getMockUser()->getImg(),
+            'createdAt' => $this->getMockUser()->getCreateAt(),
+            'updatedAt' => $this->getMockUser()->getUpdatedAt(),
+            'groups' => $this->getMockUser()->getGroups(),
+        ];
+
+
+        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($json));
 
         $this->assertEquals($response->id, $this->getMockUser()->getId());
         $this->assertEquals($response->username, $this->getMockUser()->getUsername());
@@ -126,15 +177,9 @@ class UserControllerTest extends AbstractHttpControllerTestCase
     {
         $this->dispatch("/security/api/users", "GET");
 
-        $json = [
-            'id' => 1,
-            'username' => 'JhonDoe',
-            'active' => true
-        ];
-
 
         $this->assertResponseStatusCode(200);
-        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($json));
+        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($this->getJsonList()));
     }
 
 }

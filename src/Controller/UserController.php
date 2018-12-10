@@ -3,7 +3,11 @@
 namespace ZfMetal\SecurityRest\Controller;
 
 
+use Zend\View\Model\JsonModel;
 use ZfMetal\Restful\Controller\MainController;
+use ZfMetal\Restful\Transformation\Policy\Auto;
+use ZfMetal\Restful\Transformation\Policy\Skip;
+use ZfMetal\Restful\Transformation\Transform;
 use ZfMetal\Security\Entity\User;
 
 class UserController extends MainController
@@ -26,6 +30,7 @@ class UserController extends MainController
      */
     protected $em;
 
+
     /**
      * UserController constructor.
      * @param \Doctrine\ORM\EntityManager $em
@@ -33,6 +38,11 @@ class UserController extends MainController
     public function __construct(\Doctrine\ORM\EntityManager $em)
     {
         $this->em = $em;
+
+        $this->policies = [
+            'password' => new Skip(),
+            'roles' => new Skip()
+        ];
     }
 
     public function getUserRepository()
@@ -44,7 +54,6 @@ class UserController extends MainController
     {
         return parent::getEntityRepository(User::class);
     }
-
 
 
 }
