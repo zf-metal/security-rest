@@ -25,18 +25,23 @@
   "minimum-stability": "dev",
   "require": {
     "php": "^5.6 || ^7.0",
-    "firebase/php-jwt": "^5.0",
     "zf-metal/security": "^1.1.2",
     "zf-metal/restful": "^1.0.7",
-    "zf-metal/log": "^1.0.0"
+    "zf-metal/log": "^1.0.0",
+    "doctrine/data-fixtures": "^1.2.2"
   },
   "require-dev": {
-    "zendframework/zend-test": "^3.1@dev",
+    "zendframework/zend-test": "^3.2.1",
     "zendframework/zend-http": "^2.8@dev"
   },
   "autoload": {
     "psr-4": {
       "ZfMetal\\SecurityRest\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "test/"
     }
   }
 }

@@ -5,7 +5,7 @@ return array(
             'orm_default' => array(
                 'driverClass' => \Doctrine\DBAL\Driver\PDOSqlite\Driver::class,
                 'params' => array(
-                    'path' => __DIR__."/../data/security.db"
+                    'path' => __DIR__."/../../data/security.db"
                 )
             ),
         )

@@ -2,28 +2,22 @@
 
 namespace Test\Controller;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
 
-use PHPUnit\Framework\TestCase;
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Http\Headers;
-use Zend\Http\Request;
-use Zend\ServiceManager\ServiceManager;
-use ZendTest\Http\HeadersTest;
-use ZfMetal\Restful\Filter\FilterManager;
-use ZfMetal\Security\Repository\UserRepository;
-use ZfMetal\SecurityJwt\Controller\JwtController;
-use ZfMetal\SecurityJwt\Options\ModuleOptions;
-use ZfMetal\SecurityJwt\Service\JwtService;
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\ORM\EntityManager;
+use Test\DataFixture\RoleLoader;
+use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
+
+
 
 /**
  * Class UserControllerTest
  * @method Request getRequest()
  * @package Test\Controller
  */
-class UserSqliteControllerTest extends AbstractHttpControllerTestCase
+class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
 {
 
     protected $traceError = true;
@@ -39,12 +33,30 @@ class UserSqliteControllerTest extends AbstractHttpControllerTestCase
         parent::setUp();
     }
 
+    public function getEm(){
+        return $this->getApplicationServiceLocator()->get(EntityManager::class);
+    }
+
+    public function testUseOfRouter()
+    {
+        $this->assertEquals(true, $this->useConsoleRequest);
+    }
+
+
     public function testGenerateStructure()
     {
+        $this->dispatch('orm:schema-tool:update --force');
+        $this->assertResponseStatusCode(0);
+        $this->assertConsoleOutputContains("Updating database schema");
+    }
 
-        $this->dispatch('vendor/bin doctrine-module orm:schema-tool:update --force');
+    public function testCreateRoleData(){
+        $loader = new Loader();
+        $loader->addFixture(new RoleLoader());
 
-        var_dump($this->getResponse()->getContent());
+        $purger = new ORMPurger();
+        $executor = new ORMExecutor($this->getEm(), $purger);
+        $executor->execute($loader->getFixtures());
     }
 
 }
