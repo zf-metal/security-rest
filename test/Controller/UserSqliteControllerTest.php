@@ -13,7 +13,6 @@ use Test\DataFixture\UserLoader;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
 
 
-
 /**
  * Class UserControllerTest
  * @method Request getRequest()
@@ -35,7 +34,8 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
         parent::setUp();
     }
 
-    public function getEm(){
+    public function getEm()
+    {
         return $this->getApplicationServiceLocator()->get(EntityManager::class);
     }
 
@@ -45,14 +45,21 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
     }
 
 
+    /**
+     * Se genera la estructura de la base de datos (Creacion de tablas)
+     */
     public function testGenerateStructure()
     {
         $this->dispatch('orm:schema-tool:update --force');
         $this->assertResponseStatusCode(0);
-        $this->assertConsoleOutputContains("Updating database schema");
+        //$this->assertConsoleOutputContains("Updating database schema");
     }
 
-    public function testCreateData(){
+    /**
+     * Se popula las tablas con datos necesarios (Permisos, Roles, Usuarios y sus relaciones)
+     */
+    public function testCreateData()
+    {
         $loader = new Loader();
         $loader->addFixture(new PermissionLoader());
         $loader->addFixture(new RoleLoader());
@@ -65,7 +72,9 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
 
 
     /**
-     * Verico que con metodo GET y parametro ID 1 obtengo el usuario requerido (administrator)
+     * METHOD GET
+     * ACTION get
+     * DESC Obtener un registro especifico (administrator)
      */
     public function testGetAdministrator()
     {
@@ -84,8 +93,11 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
     }
 
     /**
-     * Verico que con metodo GET y parametro ID 2 obtengo el usuario requerido (jhondoe)
+     * METHOD GET
+     * ACTION get
+     * DESC Obtener un registro especifico (JhonDoe)
      */
+
     public function testGetJhonDoe()
     {
         $this->setUseConsoleRequest(false);
@@ -102,13 +114,18 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
 
     }
 
-
-    public function testGetList(){
+    /**
+     * METHOD GET
+     * ACTION getlist
+     * DESC Obtener un listado de registros
+     */
+    public function testGetList()
+    {
         $this->setUseConsoleRequest(false);
         $this->dispatch("/security/api/users", "GET");
 
         $response = json_decode($this->getResponse()->getContent());
-
+        //var_dump($response);
 
         $this->assertResponseStatusCode(200);
 
@@ -120,5 +137,147 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
         $this->assertEquals($response[1]->username, "JhonDoe");
         $this->assertEquals($response[1]->active, true);
 
+    }
+
+
+    /**
+     * @depends testCreateData
+     * METHOD POST
+     * ACTION create
+     * DESC crear un nuevo usuario
+     */
+
+    public function testCreate()
+    {
+
+        $this->setUseConsoleRequest(false);
+
+        //Create Firt User
+
+        $params = [
+            "username" => "userCreate",
+            "email" => "userCreate@zfmetal.com",
+            "name" => "userCreate",
+            "active" => true,
+            "password" => "123"
+        ];
+
+        $this->dispatch("/security/api/users", "POST",
+            $params);
+
+        $jsonToCompare = [
+            "status" => true,
+            'id' => 4,
+            "message" => "The item was created successfully"
+        ];
+
+        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+        $this->assertResponseStatusCode(201);
+
+
+        $this->reset();
+
+        //Create Second User (to be update)
+        $params = [
+            "username" => "userToUpdate",
+            "email" => "userToUpdate@zfmetal.com",
+            "name" => "userToUpdate",
+            "active" => true,
+            "password" => "789"
+        ];
+
+        $this->dispatch("/security/api/users", "POST",
+            $params);
+
+        $jsonToCompare = [
+            "status" => true,
+            'id' => 5,
+            "message" => "The item was created successfully"
+        ];
+
+        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+        $this->assertResponseStatusCode(201);
+
+        $this->reset();
+        //Create Third User (to be delete)
+        $params = [
+            "username" => "userToDelete",
+            "email" => "userToDelete@zfmetal.com",
+            "name" => "userToDelete",
+            "active" => true,
+            "password" => "789"
+        ];
+
+        $this->dispatch("/security/api/users", "POST",
+            $params);
+
+        $jsonToCompare = [
+            "status" => true,
+            'id' => 6,
+            "message" => "The item was created successfully"
+        ];
+
+        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+        $this->assertResponseStatusCode(201);
+
+    }
+
+
+    /**
+     * @depends testCreate
+     * METHOD PUT
+     * ACTION update
+     * DESC actualizo un usuario
+     */
+
+    public function testUpdate()
+    {
+
+        $this->setUseConsoleRequest(false);
+
+        $params = [
+            "username" => "userUpdated",
+            "email" => "userUpdated@zfmetal.com",
+            "name" => "userUpdated",
+            "active" => true,
+            "password" => "456"
+        ];
+
+        $this->dispatch("/security/api/users/5", "PUT",
+            $params);
+
+
+        $jsonToCompare = [
+            "status" => true,
+            'id' => 5,
+            "message" => "The item was updated successfully"
+        ];
+
+        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+        $this->assertResponseStatusCode(200);
+    }
+
+    /**
+     * @depends testUpdate
+     * METHOD PUT
+     * ACTION update
+     * DESC actualizo un usuario
+     */
+
+    public function testDelete()
+    {
+
+        $this->setUseConsoleRequest(false);
+
+
+        $this->dispatch("/security/api/users/6", "DELETE");
+
+
+        $jsonToCompare = [
+            "message" => "Item Delete"
+        ];
+
+        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+        $this->assertResponseStatusCode(200);
     }
 }

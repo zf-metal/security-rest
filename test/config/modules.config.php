@@ -14,9 +14,14 @@ return [
     'Zend\Mvc\Console',
     'Zend\Router',
     'Zend\Validator',
+    'Zend\Filter',
+    'Zend\Form',
+    'Zend\Validator',
+    'Zend\Mvc\Plugin\FlashMessenger',
     'DoctrineModule',
     'DoctrineORMModule',
     'ZfcRbac',
+    'ZfMetal\Commons',
     'ZfMetal\Security',
     'ZfMetal\SecurityRest'
 ];
