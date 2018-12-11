@@ -13,6 +13,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\ORM\EntityManager;
+use ZfMetal\Security\Entity\Permission;
 use ZfMetal\Security\Entity\Role;
 
 class RoleLoader extends AbstractFixture implements FixtureInterface
@@ -70,16 +71,16 @@ class RoleLoader extends AbstractFixture implements FixtureInterface
 
         $this->em = $manager;
 
-        $this->createRole(1, self::INVITADO);
-        $this->createRole(2, self::USUARIO);
-        $this->createRole(3, self::ADMIN);
+        $this->createRole(1, self::INVITADO, [PermissionLoader::SHOW]);
+        $this->createRole(2, self::USUARIO, [PermissionLoader::SHOW, PermissionLoader::EDIT]);
+        $this->createRole(3, self::ADMIN, [PermissionLoader::SHOW, PermissionLoader::CREATE, PermissionLoader::EDIT, PermissionLoader::DELETE]);
         $manager->flush();
 
 
     }
 
 
-    public function createRole($id, $name)
+    public function createRole($id, $name, array $permissions = [])
     {
 
         $role = $this->findByName($name);
@@ -87,8 +88,17 @@ class RoleLoader extends AbstractFixture implements FixtureInterface
             $role = new Role();
             //$role->setId($id); //No setId method exist. Fix It!
             $role->setName($name);
+
+            foreach($permissions as $permission){
+                $role->addPermission($this->getReference($permission));
+            }
         }
+
+
         $this->getEm()->persist($role);
+
+        //Add reference for relations
+        $this->addReference($name, $role);
 
         $this->getRoles()->add($role);
     }

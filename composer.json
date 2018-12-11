@@ -26,7 +26,7 @@
   "require": {
     "php": "^5.6 || ^7.0",
     "zf-metal/security": "^1.1.2",
-    "zf-metal/restful": "^1.0.7",
+    "zf-metal/restful": "^1.0.9",
     "zf-metal/log": "^1.0.0",
     "doctrine/data-fixtures": "^1.2.2"
   },

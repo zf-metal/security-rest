@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05539e5198638d0bc81c1552ff6b306f",
+    "content-hash": "fe8a3a50b1c5702b488e4a9d368a4405",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5433,12 +5433,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/restful.git",
-                "reference": "841fee268bde89601ed61d58c37edb4eaa88df97"
+                "reference": "53fafd6697ec47117e24107aa7b36c5d9acc5d5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/restful/zipball/841fee268bde89601ed61d58c37edb4eaa88df97",
-                "reference": "841fee268bde89601ed61d58c37edb4eaa88df97",
+                "url": "https://api.github.com/repos/zf-metal/restful/zipball/53fafd6697ec47117e24107aa7b36c5d9acc5d5f",
+                "reference": "53fafd6697ec47117e24107aa7b36c5d9acc5d5f",
                 "shasum": ""
             },
             "require": {
@@ -5489,7 +5489,7 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2018-12-10T18:52:55+00:00"
+            "time": "2018-12-11T03:45:27+00:00"
         },
         {
             "name": "zf-metal/security",
