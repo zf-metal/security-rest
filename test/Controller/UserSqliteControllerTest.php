@@ -259,9 +259,9 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
 
     /**
      * @depends testUpdate
-     * METHOD PUT
-     * ACTION update
-     * DESC actualizo un usuario
+     * METHOD DELETE
+     * ACTION delete
+     * DESC elimino un usuario
      */
 
     public function testDelete()
