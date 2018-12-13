@@ -1,4 +1,4 @@
-# ZfMetal\SecurityJwt
+# ZfMetal\SecurityRest
 Modulo de Zend Framework 3 que permite la integración restfull del modulo ZfMetal\Security
 
 ## Dependencias

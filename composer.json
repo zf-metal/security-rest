@@ -1,5 +1,5 @@
 {
-  "name": "zf-metal/security-jwt",
+  "name": "zf-metal/security-rest",
   "description": "Modulo de autenticación por jwt para Zend Framework 3",
   "type": "library",
   "license": "MIT",
