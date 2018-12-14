@@ -50,6 +50,7 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
      */
     public function testGenerateStructure()
     {
+
         $this->dispatch('orm:schema-tool:update --force');
         $this->assertResponseStatusCode(0);
         //$this->assertConsoleOutputContains("Updating database schema");
@@ -68,6 +69,7 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
         $purger = new ORMPurger();
         $executor = new ORMExecutor($this->getEm(), $purger);
         $executor->execute($loader->getFixtures());
+        $this->assertResponseStatusCode(0);
     }
 
 
@@ -111,6 +113,8 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
         $this->assertEquals($response->id, 2);
         $this->assertEquals($response->username, "JhonDoe");
         $this->assertEquals($response->active, true);
+
+       // $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), "{}");
 
     }
 
@@ -280,4 +284,35 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
         $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
         $this->assertResponseStatusCode(200);
     }
+
+
+
+
+
+
+
+
+    /**
+     * METHOD GET
+     * ACTION get
+     * DESC Obtener un registro especifico (administrator)
+     */
+    public function testGetInvalidId()
+    {
+        $this->setUseConsoleRequest(false);
+        $this->dispatch("/security/api/users/23", "GET");
+
+
+        $response = json_decode($this->getResponse()->getContent());
+
+        $this->assertResponseStatusCode(404);
+
+        $jsonToCompare = [
+            "message" => "The item does not exist"
+        ];
+
+        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+
+    }
+
 }
