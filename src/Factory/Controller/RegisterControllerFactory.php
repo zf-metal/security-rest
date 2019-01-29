@@ -4,6 +4,7 @@ namespace ZfMetal\SecurityRest\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
+use ZfMetal\Security\Form\Register;
 
 
 class RegisterControllerFactory implements FactoryInterface
@@ -13,9 +14,9 @@ class RegisterControllerFactory implements FactoryInterface
     {
 
         $em = $container->get(\Doctrine\ORM\EntityManager::class);
+        $form = $container->get('FormElementManager')->get(Register::class);
 
-
-        return new \ZfMetal\SecurityRest\Controller\RegisterController($em);
+        return new \ZfMetal\SecurityRest\Controller\RegisterController($em,$form);
     }
 
 }

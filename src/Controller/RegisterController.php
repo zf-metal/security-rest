@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use ZfMetal\Security\Entity\User;
+use ZfMetal\Security\Form\Register;
 
 /**
  * Class RegisterController
@@ -23,10 +24,16 @@ class RegisterController extends AbstractActionController
      */
     protected $em;
 
-    function __construct(\Doctrine\ORM\EntityManager $em)
-    {
-        $this->em = $em;
 
+    /**
+     *
+     * @var Register
+     */
+    protected $form;
+
+    function __construct(\Doctrine\ORM\EntityManager $em, Register $form) {
+        $this->em = $em;
+        $this->form = $form;
     }
 
     /**
@@ -52,6 +59,10 @@ class RegisterController extends AbstractActionController
     {
 
         $response = [];
+        $message = '';
+        $errors = '';
+        $status = false;
+
 
         if (!$this->getSecurityOptions()->getPublicRegister()) {
             $this->redirect()->toRoute('home');
@@ -59,18 +70,14 @@ class RegisterController extends AbstractActionController
 
         $user = new \ZfMetal\Security\Entity\User();
 
-        $form = new \ZfMetal\Security\Form\Register();
-        $form->setHydrator(new \DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity($this->getEm()));
-        $form->bind($user);
+        $this->form->setHydrator(new \DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity($this->getEm()));
+        $this->form->bind($user);
 
-        $errors = '';
-
-        $status = false;
 
         if ($this->getRequest()->isPost()) {
-            $form->setData($this->getRequest()->getPost());
+            $this->form->setData($this->getRequest()->getPost());
 
-            if ($form->isValid()) {
+            if ($this->form->isValid()) {
                 $user->setPassword($this->bcrypt()->encode($user->getPassword()));
 
                 $message = '';
@@ -107,7 +114,7 @@ class RegisterController extends AbstractActionController
                 }
 
             } else {
-                foreach ($form->getMessages() as $key => $messages) {
+                foreach ($this->form->getMessages() as $key => $messages) {
                     foreach ($messages as $msj) {
                         $errors[$key][] = $msj;
                     }
