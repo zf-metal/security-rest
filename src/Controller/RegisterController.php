@@ -17,7 +17,6 @@ class RegisterController extends AbstractActionController
 {
 
 
-
     /**
      *
      * @var \Doctrine\ORM\EntityManager
@@ -31,7 +30,8 @@ class RegisterController extends AbstractActionController
      */
     protected $form;
 
-    function __construct(\Doctrine\ORM\EntityManager $em, Register $form) {
+    function __construct(\Doctrine\ORM\EntityManager $em, Register $form)
+    {
         $this->em = $em;
         $this->form = $form;
     }
@@ -150,7 +150,7 @@ class RegisterController extends AbstractActionController
         $this->mailManager()->setTemplate('zf-metal/security/mail/validate', ["user" => $user, "link" => $link]);
         $this->mailManager()->setFrom($this->getMailFrom());
         $this->mailManager()->addTo($user->getEmail(), $user->getName());
-        $this->mailManager()->setSubject('Activación de cuenta de '.$this->getSecurityOptions()->getHttpHost());
+        $this->mailManager()->setSubject('Activación de cuenta de ' . $this->getSecurityOptions()->getHttpHost());
 
         if ($this->mailManager()->send()) {
             return true;
@@ -168,6 +168,9 @@ class RegisterController extends AbstractActionController
 
     public function validateAction()
     {
+
+        $status = false;
+
         $id = $this->params('id');
         $token = $this->params("token");
 
@@ -176,34 +179,34 @@ class RegisterController extends AbstractActionController
         $tokenObj = $tokenRepository->getTokenByUserIdAndToken($id, $token);
 
         if (!$tokenObj) {
-            return $this->forward()->dispatch(\ZfMetal\Security\Controller\RegisterController::class, array('action' => 'errorToken'));
+            $status = false;
+            $message = "La cuenta no se pudo confirmar. El token no es valido o ha expirado";
         }
 
-        $user = $this->getUserRepository()->find($id);
+        try {
+            $user = $this->getUserRepository()->find($id);
 
-        if ($user) {
-            $user->setActive(true);
-            $this->getUserRepository()->saveUser($user);
-            $tokenRepository->removeToken($tokenObj);
+            if ($user) {
+                $user->setActive(true);
+                $this->getUserRepository()->saveUser($user);
+                $status = true;
+                $message = "La cuenta ha sido confirmada con Exito";
+                $tokenRepository->removeToken($tokenObj);
+
+            }
+        } catch (\Exception $e) {
+            $status = false;
+            $message = "Hubo un problema al intentar activar tu cuenta.";
         }
+
 
         $response = [
-            "status" => true,
-            "message" => 'La cuenta ha sido confirmada con Exito'
+            "status" => $status,
+            "message" => $message
         ];
 
         return new JsonModel($response);
     }
 
-    public function errorTokenAction()
-    {
-        //return new ViewModel('ZfMetal\Security\Register\error-token');
-
-        $response = [
-            "status" => false,
-            "message" => "La cuenta no se pudo confirmar. El token no es valido o ha expirado"
-        ];
-        return new JsonModel($response);
-    }
 
 }

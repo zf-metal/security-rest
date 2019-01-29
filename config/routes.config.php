@@ -31,6 +31,17 @@ return [
                             ]
                         ],
                     ],
+                    'validate' => [
+                        'type' => \Zend\Router\Http\Segment::class,
+                        'may_terminate' => true,
+                        'options' => [
+                            'route' => '/validate/:id/:token',
+                            'defaults' => [
+                                'controller' => \ZfMetal\SecurityRest\Controller\RegisterController::class,
+                                'action' => 'validate'
+                            ]
+                        ],
+                    ],
                     'recovery' => [
                         'type' => \Zend\Router\Http\Segment::class,
                         'may_terminate' => true,
