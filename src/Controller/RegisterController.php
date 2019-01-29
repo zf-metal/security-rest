@@ -5,6 +5,7 @@ namespace ZfMetal\SecurityRest\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use ZfMetal\Mail\MailManager;
 use ZfMetal\Security\Entity\User;
 use ZfMetal\Security\Form\Register;
 
@@ -12,6 +13,8 @@ use ZfMetal\Security\Form\Register;
  * Class RegisterController
  * @package ZfMetal\SecurityRest\Controller
  * @method \ZfMetal\Security\Options\ModuleOptions getSecurityOptions
+ * @method \ZfMetal\SecurityRest\Options\ModuleOptions getSecurityRestOptions
+ * @method MailManager mailManager
  */
 class RegisterController extends AbstractActionController
 {
@@ -136,7 +139,7 @@ class RegisterController extends AbstractActionController
     {
         $token = $this->stringGenerator()->generate();
 
-        $link = $this->url()->fromRoute('zf-metal.user/register/validate', ['id' => $user->getId(), 'token' => $token], ['force_canonical' => true]);
+        $link = $this->getSecurityRestOptions()->getWebHost(). $this->url()->fromRoute('zf-metal-security-rest/validate', ['id' => $user->getId(), 'token' => $token], ['force_canonical' => false]);
 
         $tokenObj = new \ZfMetal\Security\Entity\Token();
 
@@ -147,10 +150,10 @@ class RegisterController extends AbstractActionController
 
         $tokenRepository->saveToken($tokenObj);
 
-        $this->mailManager()->setTemplate('zf-metal/security/mail/validate', ["user" => $user, "link" => $link]);
+        $this->mailManager()->setTemplate('zf-metal/security-rest/mail/validate', ["user" => $user, "link" => $link]);
         $this->mailManager()->setFrom($this->getMailFrom());
         $this->mailManager()->addTo($user->getEmail(), $user->getName());
-        $this->mailManager()->setSubject('Activación de cuenta de ' . $this->getSecurityOptions()->getHttpHost());
+        $this->mailManager()->setSubject('Activación de cuenta de ' . $this->getSecurityRestOptions()->getWebHost());
 
         if ($this->mailManager()->send()) {
             return true;
