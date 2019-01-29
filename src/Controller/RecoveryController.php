@@ -6,9 +6,10 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Zend\Mail;
+use ZfMetal\Security\Entity\User;
 
-class RecoveryController extends AbstractActionController {
-
+class RecoveryController extends AbstractActionController
+{
 
 
     /**
@@ -21,7 +22,6 @@ class RecoveryController extends AbstractActionController {
      * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
-
 
 
     /**
@@ -47,19 +47,21 @@ class RecoveryController extends AbstractActionController {
      * RecoverController constructor.
      * @param $userRepository
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em, \ZfMetal\Security\Form\Recover $form) {
-        $this->userRepository = $userRepository;
+    public function __construct(\Doctrine\ORM\EntityManager $em, \ZfMetal\Security\Form\Recover $form)
+    {
+        $this->em = $em;
         $this->form = $form;
     }
-    
 
 
-    public function recoveryAction() {
+    public function recoveryAction()
+    {
         /* @var $form \Zend\Form\Form */
         $form = $this->form;
 
         $status = false;
         $errors = '';
+        $message = '';
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();
@@ -69,7 +71,11 @@ class RecoveryController extends AbstractActionController {
             if ($form->isValid()) {
                 $user = $this->getUserRepository()->findOneByEmail($data['email']);
                 $status = $this->updatePasswordUserAndNotify($user);
-
+                if($status){
+                    $message = 'Se genero una nueva contraseña y se envio al correo asociado a la cuenta';
+                }else{
+                    $message = 'Falla al procesar la recuperación de contraseña';
+                }
             } else {
                 foreach ($form->getMessages() as $key => $messages) {
                     foreach ($messages as $msj) {
@@ -87,7 +93,8 @@ class RecoveryController extends AbstractActionController {
     }
 
 
-    public function updatePasswordUserAndNotify(\ZfMetal\Security\Entity\User $user) {
+    public function updatePasswordUserAndNotify(\ZfMetal\Security\Entity\User $user)
+    {
         $newPassword = $this->stringGenerator()->generate();
 
         if (!$newPassword) {
@@ -108,16 +115,17 @@ class RecoveryController extends AbstractActionController {
         return $result;
     }
 
-    public function notifyUser(\ZfMetal\Security\Entity\User $user, $newPassword) {
+    public function notifyUser(\ZfMetal\Security\Entity\User $user, $newPassword)
+    {
 
         $this->mailManager()->setTemplate('zf-metal/security/mail/reset', ["user" => $user, "newPassowrd" => $newPassword]);
 
         $this->mailManager()->setFrom($this->getSecurityOptions()->getMailFrom());
         $this->mailManager()->addTo($user->getEmail(), $user->getName());
-        $this->mailManager()->setSubject('Recuperar Password');
+        $this->mailManager()->setSubject('Recuperación de contraseña de '. $this->getSecurityOptions()->getHttpHost());
 
         if ($this->mailManager()->send()) {
-             return true;
+            return true;
         } else {
             $this->logger()->info("Falla al enviar mail al resetear password.");
             return false;

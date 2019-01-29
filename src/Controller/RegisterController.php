@@ -150,7 +150,7 @@ class RegisterController extends AbstractActionController
         $this->mailManager()->setTemplate('zf-metal/security/mail/validate', ["user" => $user, "link" => $link]);
         $this->mailManager()->setFrom($this->getMailFrom());
         $this->mailManager()->addTo($user->getEmail(), $user->getName());
-        $this->mailManager()->setSubject('Confirmación de cuenta');
+        $this->mailManager()->setSubject('Activación de cuenta de '.$this->getSecurityOptions()->getHttpHost());
 
         if ($this->mailManager()->send()) {
             return true;

@@ -13,7 +13,8 @@ class RecoveryControllerFactory implements FactoryInterface
     {
 
         $em = $container->get(\Doctrine\ORM\EntityManager::class);
-
+        $userRepository = $em->getRepository('ZfMetal\Security\Entity\User');
+        
         //INIT FORM AND FILTER
         $form = new \ZfMetal\Security\Form\Recover();
         $emailExist = new \ZfMetal\Security\Validator\EmailExist(["userRepository" => $userRepository]);
