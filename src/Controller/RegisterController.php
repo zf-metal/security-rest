@@ -139,6 +139,7 @@ class RegisterController extends AbstractActionController
     {
         $token = $this->stringGenerator()->generate();
 
+        //@TODO definir path relativo por config
         $link = $this->getSecurityRestOptions()->getWebHost() . "/validate/" . $user->getId() . "/" . $token;
 
         $tokenObj = new \ZfMetal\Security\Entity\Token();
