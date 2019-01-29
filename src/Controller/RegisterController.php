@@ -60,7 +60,7 @@ class RegisterController extends AbstractActionController
 
         $response = [];
         $message = '';
-        $errors = '';
+        $errors = [];
         $status = false;
 
 
@@ -125,7 +125,7 @@ class RegisterController extends AbstractActionController
         $response["status"] = $status;
         $response["message"] = $message;
 
-        if (isset($errors)) {
+        if ($errors) {
             $response["errors"] = $errors;
         }
 
