@@ -9,10 +9,10 @@ return [
         'strategies' => [
             'ViewJsonStrategy',
         ],
-        'view_helpers' => [
-            'factories' => [
-                'getSecurityRestOptions' => \ZfMetal\SecurityRest\Factory\Helper\View\OptionsFactory::class,
-            ],
+    ],
+    'view_helpers' => [
+        'factories' => [
+            'getSecurityRestOptions' => \ZfMetal\SecurityRest\Factory\Helper\View\OptionsFactory::class,
         ],
     ],
 ];

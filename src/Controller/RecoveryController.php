@@ -6,8 +6,16 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Zend\Mail;
+use ZfMetal\Mail\MailManager;
 use ZfMetal\Security\Entity\User;
 
+/**
+ * Class RecoveryController
+ * @package ZfMetal\SecurityRest\Controller
+ * @method \ZfMetal\Security\Options\ModuleOptions getSecurityOptions
+ * @method \ZfMetal\SecurityRest\Options\ModuleOptions getSecurityRestOptions
+ * @method MailManager mailManager
+ */
 class RecoveryController extends AbstractActionController
 {
 
