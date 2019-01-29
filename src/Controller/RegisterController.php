@@ -1,0 +1,202 @@
+<?php
+
+namespace ZfMetal\SecurityRest\Controller;
+
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
+use Zend\View\Model\ViewModel;
+use ZfMetal\Security\Entity\User;
+
+/**
+ * Class RegisterController
+ * @package ZfMetal\SecurityRest\Controller
+ * @method \ZfMetal\Security\Options\ModuleOptions getSecurityOptions
+ */
+class RegisterController extends AbstractActionController
+{
+
+
+
+    /**
+     *
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $em;
+
+    function __construct(\Doctrine\ORM\EntityManager $em)
+    {
+        $this->em = $em;
+
+    }
+
+    /**
+     * @return \ZfMetal\Security\Repository\UserRepository
+     */
+    public function getUserRepository()
+    {
+        return $this->getEm()->getRepository(User::class);
+    }
+
+
+    function getEm()
+    {
+        return $this->em;
+    }
+
+    function setEm(\Doctrine\ORM\EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    public function registerAction()
+    {
+
+        $response = [];
+
+        if (!$this->getSecurityOptions()->getPublicRegister()) {
+            $this->redirect()->toRoute('home');
+        }
+
+        $user = new \ZfMetal\Security\Entity\User();
+
+        $form = new \ZfMetal\Security\Form\Register();
+        $form->setHydrator(new \DoctrineORMModule\Stdlib\Hydrator\DoctrineEntity($this->getEm()));
+        $form->bind($user);
+
+        $errors = '';
+
+        $status = false;
+
+        if ($this->getRequest()->isPost()) {
+            $form->setData($this->getRequest()->getPost());
+
+            if ($form->isValid()) {
+                $user->setPassword($this->bcrypt()->encode($user->getPassword()));
+
+                $message = '';
+                if ($this->getSecurityOptions()->getEmailConfirmationRequire()) {
+                    $user->setActive(0);
+                    $role = $this->getEm()->getRepository(\ZfMetal\Security\Entity\Role::class)->findOneBy(['name' => $this->getSecurityOptions()->getRoleDefault()]);
+                    if (!$role) {
+                        throw new \Exception('The role ' . $this->getSecurityOptions()->getRoleDefault() . ' no exist!');
+                    }
+                    $user->addRole($role);
+                    $this->getUserRepository()->saveUser($user);
+                    $message = 'El usuario fue creado correctamente. Requiere activación via email.';
+
+                    if ($this->notifyUser($user)) {
+                        $message = 'Envio de mail exitoso. Verifique su casilla de Email para activar el usuario.';
+                        $status = true;
+                    } else {
+                        $message = 'Envio de mail fallido. Contacte al administrador.';
+                    }
+                } else {
+                    $role = $this->getEm()->getRepository(\ZfMetal\Security\Entity\Role::class)->findOneBy(['name' => $this->getSecurityOptions()->getRoleDefault()]);
+                    if (!$role) {
+                        throw new \Exception('The role ' . $this->getSecurityOptions()->getRoleDefault() . ' no exist!');
+                    }
+                    $user->addRole($role);
+                    $user->setActive($this->getSecurityOptions()->getUserStateDefault());
+                    $this->getUserRepository()->saveUser($user);
+                    $status = true;
+                    $message = 'El usuario fue creado correctamente.';
+
+                    if (!$this->getSecurityOptions()->getUserStateDefault()) {
+                        $message .= 'El usuario debe ser habilitado por un administrador.';
+                    }
+                }
+
+            } else {
+                foreach ($form->getMessages() as $key => $messages) {
+                    foreach ($messages as $msj) {
+                        $errors[$key][] = $msj;
+                    }
+                }
+            }
+        }
+
+        $response["status"] = $status;
+        $response["message"] = $message;
+
+        if (isset($errors)) {
+            $response["errors"] = $errors;
+        }
+
+        return new JsonModel($response);
+    }
+
+    public function notifyUser(\ZfMetal\Security\Entity\User $user)
+    {
+        $token = $this->stringGenerator()->generate();
+
+        $link = $this->url()->fromRoute('zf-metal.user/register/validate', ['id' => $user->getId(), 'token' => $token], ['force_canonical' => true]);
+
+        $tokenObj = new \ZfMetal\Security\Entity\Token();
+
+        $tokenObj->setUser($user)
+            ->settoken($token);
+
+        $tokenRepository = $this->em->getRepository(\ZfMetal\Security\Entity\Token::class);
+
+        $tokenRepository->saveToken($tokenObj);
+
+        $this->mailManager()->setTemplate('zf-metal/security/mail/validate', ["user" => $user, "link" => $link]);
+        $this->mailManager()->setFrom($this->getMailFrom());
+        $this->mailManager()->addTo($user->getEmail(), $user->getName());
+        $this->mailManager()->setSubject('Confirmación de cuenta');
+
+        if ($this->mailManager()->send()) {
+            return true;
+        } else {
+            $this->logger()->err("Falla al enviar mail de confirmación de cuenta.");
+            return false;
+        }
+    }
+
+
+    protected function getMailFrom()
+    {
+        return $this->getSecurityOptions()->getMailFrom();
+    }
+
+    public function validateAction()
+    {
+        $id = $this->params('id');
+        $token = $this->params("token");
+
+        $tokenRepository = $this->em->getRepository(\ZfMetal\Security\Entity\Token::class);
+
+        $tokenObj = $tokenRepository->getTokenByUserIdAndToken($id, $token);
+
+        if (!$tokenObj) {
+            return $this->forward()->dispatch(\ZfMetal\Security\Controller\RegisterController::class, array('action' => 'errorToken'));
+        }
+
+        $user = $this->getUserRepository()->find($id);
+
+        if ($user) {
+            $user->setActive(true);
+            $this->getUserRepository()->saveUser($user);
+            $tokenRepository->removeToken($tokenObj);
+        }
+
+        $response = [
+            "status" => true,
+            "message" => 'La cuenta ha sido confirmada con Exito'
+        ];
+
+        return new JsonModel($response);
+    }
+
+    public function errorTokenAction()
+    {
+        //return new ViewModel('ZfMetal\Security\Register\error-token');
+
+        $response = [
+            "status" => false,
+            "message" => "La cuenta no se pudo confirmar. El token no es valido o ha expirado"
+        ];
+        return new JsonModel($response);
+    }
+
+}
