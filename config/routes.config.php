@@ -53,6 +53,28 @@ return [
                             ]
                         ],
                     ],
+                    'passwordChange' => [
+                        'type' => \Zend\Router\Http\Segment::class,
+                        'may_terminate' => true,
+                        'options' => [
+                            'route' => '/password-change',
+                            'defaults' => [
+                                'controller' => \ZfMetal\SecurityRest\Controller\PasswordChangeController::class,
+                                'action' => 'password-change'
+                            ]
+                        ],
+                    ],
+                    'imageChange' => [
+                        'type' => \Zend\Router\Http\Segment::class,
+                        'may_terminate' => true,
+                        'options' => [
+                            'route' => '/image-change',
+                            'defaults' => [
+                                'controller' => \ZfMetal\SecurityRest\Controller\ImageChangeController::class,
+                                'action' => 'image-change'
+                            ]
+                        ],
+                    ],
                 ]
             ],
 
