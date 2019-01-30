@@ -4,6 +4,7 @@ namespace ZfMetal\SecurityRest\Controller;
 
 use Zend\Config\Processor\Constant;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use ZfMetal\Security\Constants;
 use ZfMetal\Security\Entity\User;
@@ -86,6 +87,7 @@ class ImageChangeController extends AbstractActionController
                     $this->getRequest()->getPost()->toArray(), $this->getRequest()->getFiles()->toArray()
                 );
 
+
                 $this->form->setHydrator(new \DoctrineModule\Stdlib\Hydrator\DoctrineObject($this->getEm()));
 
                 $this->form->bind($this->getIdentityUser());
@@ -96,16 +98,16 @@ class ImageChangeController extends AbstractActionController
                     $this->getUserRepository()->saveUser($this->getIdentityUser());
 
                     //@TODO To Review this mess. WTF
-                    $this->Identity()->setImg($this->getIdentityUser()->getImg());
+                    $this->getJwtIdentity()->setImg($this->getIdentityUser()->getImg());
 
                     $status = true;
 
-                    $img = Constants::IMG_RELATIVE_PATH. $this->getIdentityUser()->getImg();
+                    $img = $this->getSecurityOptions()->getHttpHost() . Constants::IMG_RELATIVE_PATH. $this->getIdentityUser()->getImg();
 
                     $message = 'La imagen se actualizó correctamente.';
 
                 } else {
-                    foreach ($form->getMessages() as $key => $messages) {
+                    foreach ($this->form->getMessages() as $key => $messages) {
                         foreach ($messages as $msj) {
                             $errors[$key][] = $msj;
                         }

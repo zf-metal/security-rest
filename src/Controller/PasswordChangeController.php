@@ -3,6 +3,7 @@
 namespace ZfMetal\SecurityRest\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use ZfMetal\Security\Entity\User;
 use ZfMetal\Security\Form\PasswordChangeForm;
