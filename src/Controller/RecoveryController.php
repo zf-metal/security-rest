@@ -80,7 +80,7 @@ class RecoveryController extends AbstractActionController
                 $user = $this->getUserRepository()->findOneByEmail($data['email']);
                 $status = $this->updatePasswordUserAndNotify($user);
                 if($status){
-                    $message = 'Se genero una nueva contraseña y se envio al correo asociado a la cuenta';
+                    $message = 'Recuperación Exitosa. Te hemos enviado un correo con la nueva contraseña de acceso.';
                 }else{
                     $message = 'Falla al procesar la recuperación de contraseña';
                 }
