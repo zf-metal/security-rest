@@ -185,25 +185,26 @@ class RegisterController extends AbstractActionController
         if (!$tokenObj) {
             $status = false;
             $message = "La cuenta no se pudo confirmar. El token no es valido o ha expirado";
-        }
+        }else {
 
-        try {
-            $user = $this->getUserRepository()->find($id);
+            try {
+                $user = $this->getUserRepository()->find($id);
 
-            if ($user) {
-                $user->setActive(true);
-                $this->getUserRepository()->saveUser($user);
-                $status = true;
-                $message = "La cuenta ha sido confirmada con Exito";
-                $tokenRepository->removeToken($tokenObj);
+                if ($user) {
+                    $user->setActive(true);
+                    $this->getUserRepository()->saveUser($user);
+                    $status = true;
+                    $message = "La cuenta ha sido confirmada con Exito";
+                    $tokenRepository->removeToken($tokenObj);
 
+                }
+            } catch (\Exception $e) {
+                $status = false;
+                $message = "Hubo un problema al intentar activar tu cuenta.";
             }
-        } catch (\Exception $e) {
-            $status = false;
-            $message = "Hubo un problema al intentar activar tu cuenta.";
+
         }
-
-
+        
         $response = [
             "status" => $status,
             "message" => $message
