@@ -99,7 +99,7 @@ class PasswordChangeController extends AbstractActionController
                     $status = true;
                     $message = 'Contraseña actualizada con exito.';
                 } else {
-                    foreach ($form->getMessages() as $key => $messages) {
+                    foreach ($this->form->getMessages() as $key => $messages) {
                         foreach ($messages as $msj) {
                             $errors[$key][] = $msj;
                         }
