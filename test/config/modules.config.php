@@ -23,5 +23,6 @@ return [
     'ZfcRbac',
     'ZfMetal\Commons',
     'ZfMetal\Security',
+    'ZfMetal\Restful',
     'ZfMetal\SecurityRest'
 ];

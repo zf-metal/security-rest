@@ -11,6 +11,7 @@ use Test\DataFixture\PermissionLoader;
 use Test\DataFixture\RoleLoader;
 use Test\DataFixture\UserLoader;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
+use ZfMetal\SecurityRest\Controller\RoleController;
 
 
 /**
@@ -114,7 +115,7 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
         $this->assertEquals($response->username, "JhonDoe");
         $this->assertEquals($response->active, true);
 
-       // $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), "{}");
+        // $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), "{}");
 
     }
 
@@ -278,18 +279,13 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
 
 
         $jsonToCompare = [
+            "status" => true,
             "message" => "Item Delete"
         ];
 
         $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
         $this->assertResponseStatusCode(200);
     }
-
-
-
-
-
-
 
 
     /**
@@ -308,10 +304,59 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
         $this->assertResponseStatusCode(404);
 
         $jsonToCompare = [
+            "status" => false,
             "message" => "The item does not exist"
         ];
 
         $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+
+    }
+
+
+    /**
+     * METHOD GET
+     * ACTION getlRoleist
+     * DESC Obtener un listado de registros
+     */
+    public function testGetRoleList()
+    {
+        $this->setUseConsoleRequest(false);
+        $this->dispatch("/security/api/roles", "GET");
+
+        $jsonToCompare = [
+            [
+                "id" => 1,
+                "name" => RoleLoader::INVITADO,
+                'children' => null,
+                'permissions' => [
+                    ['id' => 1, 'name' => 'show']
+                ]
+            ],
+            [
+                "id" => 2,
+                "name" => RoleLoader::USUARIO,
+                'children' => null,
+                'permissions' => [
+                    ['id' => 1, 'name' => 'show'],
+                    ['id' => 3, 'name' => 'edit']
+
+                ]
+            ],
+            [
+                "id" => 3,
+                "name" => RoleLoader::ADMIN,
+                'children' => null,
+                'permissions' => [
+                    ['id' => 1, 'name' => 'show'],
+                    ['id' => 2, 'name' => 'create'],
+                    ['id' => 3, 'name' => 'edit'],
+                    ['id' => 4, 'name' => 'delete']
+                ]
+            ]
+        ];
+
+        $this->assertControllerName(RoleController::class);
+        $this->assertJsonStringEqualsJsonString(json_encode($jsonToCompare), $this->getResponse()->getContent());
 
     }
 

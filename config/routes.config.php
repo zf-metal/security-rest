@@ -10,6 +10,16 @@ return [
                     'route' => '/security/api',
                 ],
                 'child_routes' => [
+                    'roles' => [
+                        'type' => \Zend\Router\Http\Segment::class,
+                        'may_terminate' => true,
+                        'options' => [
+                            'route' => '/roles[/:id]',
+                            'defaults' => [
+                                'controller' => \ZfMetal\SecurityRest\Controller\RoleController::class,
+                            ]
+                        ],
+                    ],
                     'users' => [
                         'type' => \Zend\Router\Http\Segment::class,
                         'may_terminate' => true,
