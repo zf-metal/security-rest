@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2956e10c93d3f1703aca45e353dd9534",
+    "content-hash": "218a4682c27b03bc95cf26a2475c132a",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5556,16 +5556,16 @@
         },
         {
             "name": "zf-metal/security",
-            "version": "1.1.13",
+            "version": "1.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/Security.git",
-                "reference": "704721460ddda23cb932d0e657857696f9638dc4"
+                "reference": "c871139a5fd52f8694eecbd121b9a2c19d5cbe47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/Security/zipball/704721460ddda23cb932d0e657857696f9638dc4",
-                "reference": "704721460ddda23cb932d0e657857696f9638dc4",
+                "url": "https://api.github.com/repos/zf-metal/Security/zipball/c871139a5fd52f8694eecbd121b9a2c19d5cbe47",
+                "reference": "c871139a5fd52f8694eecbd121b9a2c19d5cbe47",
                 "shasum": ""
             },
             "require": {
@@ -5614,7 +5614,7 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2019-03-11T02:14:42+00:00"
+            "time": "2019-03-11T15:09:42+00:00"
         },
         {
             "name": "zf-metal/security-jwt",

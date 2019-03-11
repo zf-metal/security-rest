@@ -11,6 +11,7 @@ use Test\DataFixture\PermissionLoader;
 use Test\DataFixture\RoleLoader;
 use Test\DataFixture\UserLoader;
 use Zend\Test\PHPUnit\Controller\AbstractConsoleControllerTestCase;
+use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use ZfMetal\SecurityRest\Controller\RoleController;
 
 
@@ -33,6 +34,9 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             include __DIR__ . '/../config/application.config.php'
         );
         parent::setUp();
+
+
+       // $this->getApplicationServiceLocator()->get('ValidatorManager')->get('NoObjectExists');
     }
 
     public function getEm()
@@ -146,7 +150,7 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
 
 
     /**
-     * @depends testCreateData
+     *
      * METHOD POST
      * ACTION create
      * DESC crear un nuevo usuario
@@ -164,7 +168,8 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             "email" => "userCreate@zfmetal.com",
             "name" => "userCreate",
             "active" => true,
-            "password" => "123"
+            "password" => "123",
+            "roles" => [1]
         ];
 
         $this->dispatch("/security/api/users", "POST",
@@ -176,7 +181,10 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             "message" => "The item was created successfully"
         ];
 
+
+
         var_dump($this->getResponse()->getContent());
+
         $this->assertJsonStringEqualsJsonString( json_encode($jsonToCompare),$this->getResponse()->getContent());
         $this->assertResponseStatusCode(201);
 
@@ -189,7 +197,8 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             "email" => "userToUpdate@zfmetal.com",
             "name" => "userToUpdate",
             "active" => true,
-            "password" => "789"
+            "password" => "789",
+            "roles" => [1]
         ];
 
         $this->dispatch("/security/api/users", "POST",
@@ -201,7 +210,7 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             "message" => "The item was created successfully"
         ];
 
-        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+        $this->assertJsonStringEqualsJsonString(json_encode($jsonToCompare), $this->getResponse()->getContent());
         $this->assertResponseStatusCode(201);
 
         $this->reset();
@@ -211,7 +220,8 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             "email" => "userToDelete@zfmetal.com",
             "name" => "userToDelete",
             "active" => true,
-            "password" => "789"
+            "password" => "789",
+            "roles" => [1]
         ];
 
         $this->dispatch("/security/api/users", "POST",
@@ -223,7 +233,7 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             "message" => "The item was created successfully"
         ];
 
-        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+        $this->assertJsonStringEqualsJsonString( json_encode($jsonToCompare),$this->getResponse()->getContent());
         $this->assertResponseStatusCode(201);
 
     }
@@ -246,7 +256,8 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             "email" => "userUpdated@zfmetal.com",
             "name" => "userUpdated",
             "active" => true,
-            "password" => "456"
+            "password" => "456",
+            "roles" =>[1]
         ];
 
         $this->dispatch("/security/api/users/5", "PUT",

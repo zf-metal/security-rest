@@ -44,7 +44,7 @@ class UserController extends MainController
             'roles' => new Skip()
         ];
 
-        //$this->setForm($form);
+        $this->setForm($form);
     }
 
     public function getUserRepository()
