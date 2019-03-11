@@ -41,7 +41,7 @@ class UserController extends MainController
 
         $this->policies = [
             'password' => new Skip(),
-            'roles' => new Skip()
+          //  'roles' => new Skip()
         ];
 
         $this->setForm($form);
