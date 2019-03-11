@@ -13,9 +13,9 @@ class UserControllerFactory implements FactoryInterface
     {
 
         $em = $container->get(\Doctrine\ORM\EntityManager::class);
+        $form = $container->get('FormElementManager')->get(\ZfMetal\Security\Form\User::class);
 
-
-        return new \ZfMetal\SecurityRest\Controller\UserController($em);
+        return new \ZfMetal\SecurityRest\Controller\UserController($em,$form);
     }
 
 }

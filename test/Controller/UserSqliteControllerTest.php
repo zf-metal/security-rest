@@ -176,7 +176,8 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             "message" => "The item was created successfully"
         ];
 
-        $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
+        var_dump($this->getResponse()->getContent());
+        $this->assertJsonStringEqualsJsonString( json_encode($jsonToCompare),$this->getResponse()->getContent());
         $this->assertResponseStatusCode(201);
 
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e088c3da88e54989bfba09030f12d03c",
+    "content-hash": "2956e10c93d3f1703aca45e353dd9534",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2625,12 +2625,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "878d05a2eb80e8c5be1d15939b024d96265193e9"
+                "reference": "adbdd5d66342fb0a0bce7422ba68181842b6610d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/878d05a2eb80e8c5be1d15939b024d96265193e9",
-                "reference": "878d05a2eb80e8c5be1d15939b024d96265193e9",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/adbdd5d66342fb0a0bce7422ba68181842b6610d",
+                "reference": "adbdd5d66342fb0a0bce7422ba68181842b6610d",
                 "shasum": ""
             },
             "require": {
@@ -2673,7 +2673,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2019-03-04T10:54:25+00:00"
+            "time": "2019-03-10T17:07:42+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -5489,16 +5489,16 @@
         },
         {
             "name": "zf-metal/restful",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/restful.git",
-                "reference": "f9680a48d3e0f9949a1aada5fb1f0096373d0f28"
+                "reference": "9ff5797a04cfefc1ffa620822f677712c1ea4491"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/restful/zipball/f9680a48d3e0f9949a1aada5fb1f0096373d0f28",
-                "reference": "f9680a48d3e0f9949a1aada5fb1f0096373d0f28",
+                "url": "https://api.github.com/repos/zf-metal/restful/zipball/9ff5797a04cfefc1ffa620822f677712c1ea4491",
+                "reference": "9ff5797a04cfefc1ffa620822f677712c1ea4491",
                 "shasum": ""
             },
             "require": {
@@ -5552,20 +5552,20 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2019-02-11T18:18:55+00:00"
+            "time": "2019-03-11T00:54:37+00:00"
         },
         {
             "name": "zf-metal/security",
-            "version": "1.1.12",
+            "version": "1.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/Security.git",
-                "reference": "d907669df1ad82fd14c396ed377891ce65cb4988"
+                "reference": "704721460ddda23cb932d0e657857696f9638dc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/Security/zipball/d907669df1ad82fd14c396ed377891ce65cb4988",
-                "reference": "d907669df1ad82fd14c396ed377891ce65cb4988",
+                "url": "https://api.github.com/repos/zf-metal/Security/zipball/704721460ddda23cb932d0e657857696f9638dc4",
+                "reference": "704721460ddda23cb932d0e657857696f9638dc4",
                 "shasum": ""
             },
             "require": {
@@ -5614,7 +5614,7 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2019-02-04T20:22:45+00:00"
+            "time": "2019-03-11T02:14:42+00:00"
         },
         {
             "name": "zf-metal/security-jwt",

@@ -35,7 +35,7 @@ class UserController extends MainController
      * UserController constructor.
      * @param \Doctrine\ORM\EntityManager $em
      */
-    public function __construct(\Doctrine\ORM\EntityManager $em)
+    public function __construct(\Doctrine\ORM\EntityManager $em, \ZfMetal\Security\Form\User $form)
     {
         $this->em = $em;
 
@@ -43,6 +43,8 @@ class UserController extends MainController
             'password' => new Skip(),
             'roles' => new Skip()
         ];
+
+        $this->setForm($form);
     }
 
     public function getUserRepository()
