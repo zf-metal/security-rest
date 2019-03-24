@@ -57,5 +57,15 @@ class UserController extends MainController
         return parent::getEntityRepository(User::class);
     }
 
+    public function update($id, $data)
+    {
+
+        $id = $this->params("id");
+        $data["id"] = $id;
+
+        $this->getForm()->remove("password");
+        return parent::update($id, $data);
+    }
+
 
 }

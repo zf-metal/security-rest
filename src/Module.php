@@ -31,12 +31,12 @@ class Module
             1                      // event priority
         );
 
-        $sharedEventManager->attach(
-            UserController::class, // Event manager 'identifier', which one we want
-            'update_users_before',                    // Name of event to listen to
-            [$this, 'encryptPassword'],   // The event listener to trigger
-            1                      // event priority
-        );
+    /*    $sharedEventManager->attach(
+            UserController::class,
+            'update_users_before',
+            [$this, 'encryptPassword'],
+            1
+        );*/
 
     }
 

@@ -150,7 +150,7 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
 
 
     /**
-     *
+     * @depends testCreateData
      * METHOD POST
      * ACTION create
      * DESC crear un nuevo usuario
@@ -254,9 +254,9 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
         $params = [
             "username" => "userUpdated",
             "email" => "userUpdated@zfmetal.com",
-            "name" => "userUpdated",
-            "active" => true,
-            "password" => "456",
+            "name" => "userUpdated 2",
+            "active" => 1,
+            "password" => "asd",
             "roles" =>[1]
         ];
 
@@ -269,6 +269,8 @@ class UserSqliteControllerTest extends AbstractConsoleControllerTestCase
             'id' => 5,
             "message" => "The item was updated successfully"
         ];
+
+        var_dump($this->getResponse()->getContent());
 
         $this->assertJsonStringEqualsJsonString($this->getResponse()->getContent(), json_encode($jsonToCompare));
         $this->assertResponseStatusCode(200);
