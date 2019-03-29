@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "218a4682c27b03bc95cf26a2475c132a",
+    "content-hash": "07994f2379b15087d4e4bb492a57f62e",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1033,12 +1033,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "c905d8bd6428a412c98ce50275460a7c0c0b5cd7"
+                "reference": "ee6e427c759da76b65597870e2bae36fc7b09631"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/c905d8bd6428a412c98ce50275460a7c0c0b5cd7",
-                "reference": "c905d8bd6428a412c98ce50275460a7c0c0b5cd7",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/ee6e427c759da76b65597870e2bae36fc7b09631",
+                "reference": "ee6e427c759da76b65597870e2bae36fc7b09631",
                 "shasum": ""
             },
             "require": {
@@ -1053,8 +1053,8 @@
                 "doctrine/common": ">=2.5.0",
                 "doctrine/mongodb-odm": ">=1.0.2",
                 "doctrine/orm": ">=2.5.0",
-                "phpunit/phpunit": "^4.8.35|^5.7|^6.5",
-                "symfony/yaml": "~2.6|~3.0|~4.0"
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5",
+                "symfony/yaml": "~2.6 || ~3.0 || ~4.0"
             },
             "suggest": {
                 "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
@@ -1106,7 +1106,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2019-02-21T22:15:07+00:00"
+            "time": "2019-03-19T13:33:58+00:00"
         },
         {
             "name": "mk-j/php_xlsxwriter",
@@ -2798,12 +2798,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "57f1ce82c997f5a8701b89ef970e36bb657fd09c"
+                "reference": "212a27b731e5bfb735679d1ffaac82bd6a1dc996"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/57f1ce82c997f5a8701b89ef970e36bb657fd09c",
-                "reference": "57f1ce82c997f5a8701b89ef970e36bb657fd09c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/212a27b731e5bfb735679d1ffaac82bd6a1dc996",
+                "reference": "212a27b731e5bfb735679d1ffaac82bd6a1dc996",
                 "shasum": ""
             },
             "require": {
@@ -2849,7 +2849,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23T15:06:07+00:00"
+            "time": "2019-03-25T07:48:46+00:00"
         },
         {
             "name": "true/punycode",
@@ -3016,12 +3016,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-cache.git",
-                "reference": "1e9b57c9f1a213811a53155419e00244db95b34c"
+                "reference": "2ab7fac923334af7846c302062e706d7d8c2ec9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-cache/zipball/1e9b57c9f1a213811a53155419e00244db95b34c",
-                "reference": "1e9b57c9f1a213811a53155419e00244db95b34c",
+                "url": "https://api.github.com/repos/zendframework/zend-cache/zipball/2ab7fac923334af7846c302062e706d7d8c2ec9b",
+                "reference": "2ab7fac923334af7846c302062e706d7d8c2ec9b",
                 "shasum": ""
             },
             "require": {
@@ -3091,7 +3091,7 @@
                 "psr-6",
                 "zf"
             ],
-            "time": "2018-05-01T22:00:09+00:00"
+            "time": "2019-03-26T14:21:30+00:00"
         },
         {
             "name": "zendframework/zend-code",
@@ -5258,16 +5258,16 @@
         },
         {
             "name": "zf-metal/commons",
-            "version": "1.3.8",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/commons.git",
-                "reference": "a242e230b0483be7ce2d9c21c4b2caef53aac76a"
+                "reference": "d2c1be25d07b1bdf9aeb73b97f33269931429fb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/commons/zipball/a242e230b0483be7ce2d9c21c4b2caef53aac76a",
-                "reference": "a242e230b0483be7ce2d9c21c4b2caef53aac76a",
+                "url": "https://api.github.com/repos/zf-metal/commons/zipball/d2c1be25d07b1bdf9aeb73b97f33269931429fb5",
+                "reference": "d2c1be25d07b1bdf9aeb73b97f33269931429fb5",
                 "shasum": ""
             },
             "require": {
@@ -5306,7 +5306,7 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2019-01-29T02:36:34+00:00"
+            "time": "2019-03-29T22:07:39+00:00"
         },
         {
             "name": "zf-metal/datagrid",
@@ -5439,16 +5439,16 @@
         },
         {
             "name": "zf-metal/mail",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/mail.git",
-                "reference": "42022ee428ffad2b65f387d60c704d8f890a4192"
+                "reference": "b1a433a2f68db2766592fb66f83ad943efd2ce26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/mail/zipball/42022ee428ffad2b65f387d60c704d8f890a4192",
-                "reference": "42022ee428ffad2b65f387d60c704d8f890a4192",
+                "url": "https://api.github.com/repos/zf-metal/mail/zipball/b1a433a2f68db2766592fb66f83ad943efd2ce26",
+                "reference": "b1a433a2f68db2766592fb66f83ad943efd2ce26",
                 "shasum": ""
             },
             "require": {
@@ -5485,20 +5485,20 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2018-12-19T03:05:06+00:00"
+            "time": "2019-03-29T12:21:36+00:00"
         },
         {
             "name": "zf-metal/restful",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/restful.git",
-                "reference": "9ff5797a04cfefc1ffa620822f677712c1ea4491"
+                "reference": "c77b6e44df54369960d687962fabff5842325c5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/restful/zipball/9ff5797a04cfefc1ffa620822f677712c1ea4491",
-                "reference": "9ff5797a04cfefc1ffa620822f677712c1ea4491",
+                "url": "https://api.github.com/repos/zf-metal/restful/zipball/c77b6e44df54369960d687962fabff5842325c5c",
+                "reference": "c77b6e44df54369960d687962fabff5842325c5c",
                 "shasum": ""
             },
             "require": {
@@ -5552,7 +5552,7 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2019-03-11T00:54:37+00:00"
+            "time": "2019-03-24T15:30:36+00:00"
         },
         {
             "name": "zf-metal/security",
@@ -5618,16 +5618,16 @@
         },
         {
             "name": "zf-metal/security-jwt",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zf-metal/security-jwt.git",
-                "reference": "6a095de12530a8ff8b1183d61c281a42fbb7a3a2"
+                "reference": "c60399a3acd69e5dd4ec6a7525733ed5765aeeab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zf-metal/security-jwt/zipball/6a095de12530a8ff8b1183d61c281a42fbb7a3a2",
-                "reference": "6a095de12530a8ff8b1183d61c281a42fbb7a3a2",
+                "url": "https://api.github.com/repos/zf-metal/security-jwt/zipball/c60399a3acd69e5dd4ec6a7525733ed5765aeeab",
+                "reference": "c60399a3acd69e5dd4ec6a7525733ed5765aeeab",
                 "shasum": ""
             },
             "require": {
@@ -5670,7 +5670,7 @@
             "keywords": [
                 "zf3"
             ],
-            "time": "2019-02-04T14:33:04+00:00"
+            "time": "2019-03-24T23:32:49+00:00"
         },
         {
             "name": "zfr/rbac",
